@@ -1,4 +1,4 @@
-# 🧃 Fuze Tea Anonyme™ – Le Projet Local Qui Dégouline de Pêche
+# 🧃 Fuze Tea Anonyme™ – Le Projet Qui Dégouline de Pêche
 
 **Disclaimer : Ce projet n’est pas sérieux, tout comme ta consommation de Fuze Tea.**
 
