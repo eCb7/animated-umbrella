@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuze Tea Addicts Anonymous - Site Vitrine</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #fef6e4;
+        }
+        
+        /* Partie image (gauche) - Adaptée pour responsive */
+        .image-section {
+            width: 50%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #ff9a8b, #ff6b95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-section img {
+            max-width: 80%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(20px 20px 30px rgba(0,0,0,0.3));
+            transition: all 0.5s ease;
+            transform: rotate(-5deg);
+        }
+        
+        .image-section:hover img {
+            transform: rotate(5deg) scale(1.05);
+        }
+        
+        /* Partie texte (droite) */
+        .text-section {
+            width: 50%;
+            padding: 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Bulle de texte originale */
+        .speech-bubble {
+            position: relative;
+            background: #fff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff5f5;
+            border: 3px dashed #ff9a8b;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-right-color: #fff5f5;
+            border-left: 0;
+            margin-top: -20px;
+            margin-left: -20px;
+            border-right-color: inherit;
+        }
+        
+        h1 {
+            color: #e84393;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 0px rgba(255,154,139,0.3);
+        }
+        
+        p {
+            color: #6c5ce7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #ff9a8b, #ff6b95);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.4);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, #ff6b95, #ff9a8b);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 7px 20px rgba(255, 107, 149, 0.6);
+        }
+        
+        /* Animation pour la bulle */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(-1deg); }
+        }
+        
+        .speech-bubble {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .warning {
+            font-size: 0.8rem;
+            color: #fd79a8;
+            font-style: italic;
+            margin-top: 2rem;
+        }
+
+        /* Responsive pour petits écrans */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .image-section, .text-section {
+                width: 100%;
+                height: auto;
+            }
+            
+            .image-section {
+                height: 50vh;
+            }
+            
+            .text-section {
+                padding: 2rem;
+            }
+            
+            .speech-bubble {
+                max-width: 100%;
+            }
+            
+            .speech-bubble:after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Section image (gauche) -->
+    <div class="image-section">
+        <img src="fuzetea.png" alt="Fuze Tea Pêche - La potion magique">
+    </div>
+    
+    <!-- Section texte (droite) -->
+    <div class="text-section">
+        <div class="speech-bubble">
+            <h1>Fuze Tea Addicts Anonymous</h1>
+            <p>Nous sommes une communauté de passionnés qui pensent qu'une vie sans Fuze Tea Pêche est comme un ordinateur sans internet - techniquement possible, mais profondément triste.</p>
+            <p>Notre mission ? Vous aider à trouver les distributeurs automatiques les plus proches, partager nos meilleures techniques pour ouvrir la bouteille d'une seule main, et soutenir ceux qui ont déjà bu leur quota quotidien avant 10h.</p>
+            <p>Rejoignez-nous dans cette quête sacrée de la pêche parfaite (celle du Fuze Tea, pas le fruit - bien que...).</p>
+            <a href="#" class="btn">S'abonner à notre newsletter (10% de sucre en moins)</a>
+            <p class="warning">*Attention : La consommation excessive de Fuze Tea peut entraîner des envies irrépressibles d'en acheter dès que vous passez devant un frigo. Nous déclinons toute responsabilité.</p>
+        </div>
+    </div>
+
+    <script>
+        // Animation JS pour le fun
+        const bubble = document.querySelector('.speech-bubble');
+        const btn = document.querySelector('.btn');
+        
+        btn.addEventListener('mouseover', function() {
+            this.textContent = "Cliquez ici (oui, là!)";
+            bubble.style.transform = "scale(1.02)";
+        });
+        
+        btn.addEventListener('mouseout', function() {
+            this.textContent = "S'abonner à notre newsletter (10% de sucre en moins)";
+            bubble.style.transform = "scale(1)";
+        });
+        
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert("💖 Merci pour votre engagement dans la grande cause du Fuze Tea ! 💖\n\n(En vrai y'a pas de newsletter, on est trop occupés à boire notre thé.)");
+        });
+        
+        // Effet de secousse si on clique sur la bulle
+        bubble.addEventListener('click', function() {
+            this.style.animation = 'none';
+            this.style.transform = 'translateX(10px)';
+            setTimeout(() => {
+                this.style.transform = 'translateX(-10px)';
+                setTimeout(() => {
+                    this.style.transform = 'translateX(0)';
+                    this.style.animation = 'float 6s ease-in-out infinite';
+                }, 100);
+            }, 100);
+        });
+
+        // Adaptation automatique de la taille de l'image
+        function adjustImageSize() {
+            const img = document.querySelector('.image-section img');
+            const container = document.querySelector('.image-section');
+            
+            // Calculer le ratio de l'image
+            const imgRatio = img.naturalWidth / img.naturalHeight;
+            const containerRatio = container.clientWidth / container.clientHeight;
+            
+            // Ajuster la taille en fonction du ratio
+            if (imgRatio > containerRatio) {
+                img.style.width = '90%';
+                img.style.height = 'auto';
+            } else {
+                img.style.width = 'auto';
+                img.style.height = '80%';
+            }
+        }
+
+        // Appeler la fonction au chargement et au redimensionnement
+        window.addEventListener('load', adjustImageSize);
+        window.addEventListener('resize', adjustImageSize);
+    </script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuze Tea Addicts Anonymous - Réhabilitation par la pêche</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #fff0f5 0%, #fff9f0 100%);
+            position: relative;
+        }
+
+        /* Éléments décoratifs */
+        .peach {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23FF9A8B" d="M256 0c-93.6 0-170 76.4-170 170 0 47.1 18.5 89.1 50.2 120.8L256 512l119.8-221.2c31.7-31.7 50.2-73.7 50.2-120.8C426 76.4 349.6 0 256 0zm0 256c-47.4 0-86-38.6-86-86s38.6-86 86-86 86 38.6 86 86-38.6 86-86 86z"/></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.6;
+            z-index: -1;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        /* Partie image (gauche) */
+        .image-section {
+            width: 50%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #ffddd2, #ffacc5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .image-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M30,50 Q50,30 70,50 T90,50 T70,50 T50,30 T30,50 Z" fill="%23ffffff20" stroke="%23ffffff30" stroke-width="1"/></svg>');
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .image-section img {
+            max-width: 70%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(20px 20px 30px rgba(0,0,0,0.3));
+            transition: all 0.5s ease;
+            transform: rotate(-5deg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-section:hover {
+            background: linear-gradient(to bottom, #ffacc5, #ffddd2);
+        }
+
+        .image-section:hover img {
+            transform: rotate(5deg) scale(1.05);
+            filter: drop-shadow(25px 25px 35px rgba(0,0,0,0.4));
+        }
+
+        /* Compteur de clics sur l'image */
+        .click-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #e84393;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Partie texte (droite) */
+        .text-section {
+            width: 50%;
+            padding: 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Bulle de texte améliorée */
+        .speech-bubble {
+            position: relative;
+            background: #fff;
+            border-radius: 30px 30px 30px 0;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(255, 107, 149, 0.2);
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff9f9;
+            border: 4px solid #ff9a8b;
+            transition: all 0.3s ease;
+        }
+
+        .speech-bubble::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23e84393" d="M256 0c141.4 0 256 114.6 256 256S397.4 512 256 512 0 397.4 0 256 114.6 0 256 0zm-24 152c-13.3 0-24 10.7-24 24v112c0 13.3 10.7 24 24 24s24-10.7 24-24V176c0-13.3-10.7-24-24-24zm24 184c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32z"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: pulse 2s infinite;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 24px solid transparent;
+            border-right-color: #ff9a8b;
+            border-left: 0;
+            margin-top: -24px;
+            z-index: -1;
+        }
+
+        .speech-bubble:before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-right-color: #fff9f9;
+            border-left: 0;
+            margin-top: -20px;
+        }
+
+        h1 {
+            color: #e84393;
+            margin-bottom: 1.5rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 3px 3px 0px rgba(255,154,139,0.2);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #ff9a8b, #ff6b95);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        h1:hover::after {
+            transform: scaleX(1);
+        }
+
+        p {
+            color: #6c5ce7;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #ff9a8b, #ff6b95);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to right, #ff6b95, #ff9a8b);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 107, 149, 0.6);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .warning {
+            font-size: 0.9rem;
+            color: #fd79a8;
+            font-style: italic;
+            margin-top: 2rem;
+            text-align: center;
+            position: relative;
+            padding-top: 1rem;
+        }
+
+        .warning::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #fd79a8, transparent);
+        }
+
+        /* Section stats et témoignages */
+        .fun-section {
+            margin-top: 3rem;
+            background: #fff9f9;
+            padding: 2rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(255, 107, 149, 0.15);
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px dashed #ff9a8b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fun-section::before {
+            content: "⚠️ VÉRITÉS SCIENTIFIQUES ⚠️";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ff6b95;
+            color: white;
+            text-align: center;
+            font-size: 0.8rem;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        .stat, .testimonials, .counter {
+            margin-bottom: 2rem;
+        }
+
+        .stat h2, .testimonials h2, .counter h2 {
+            color: #e84393;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat h2::before, .testimonials h2::before, .counter h2::before {
+            content: "";
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .stat h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23e84393" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"/></svg>');
+        }
+
+        .testimonials h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23e84393" d="M464 32H336c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48zm-288 0H48C21.5 32 0 53.5 0 80v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48z"/></svg>');
+        }
+
+        .counter h2::before {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="%23e84393" d="M48 0C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h544c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zm0 48h544v416H48V48zm224 64v64h64v64h-64v64h-64v-64h-64v-64h64v-64h64z"/></svg>');
+        }
+
+        .stat ul {
+            list-style: none;
+        }
+
+        .stat li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #6c5ce7;
+        }
+
+        .stat li::before {
+            content: "🍑";
+            position: absolute;
+            left: 0;
+        }
+
+        .testimonials p {
+            background: white;
+            padding: 1rem;
+            border-radius: 15px;
+            position: relative;
+            font-style: italic;
+            color: #6c5ce7;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .testimonials p::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: white;
+            border-left: 0;
+        }
+
+        .testimonials em {
+            display: block;
+            text-align: right;
+            color: #e84393;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .counter #tea-counter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(to right, #ff9a8b, #ff6b95);
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 149, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(-1deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .speech-bubble {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .image-section, .text-section {
+                width: 100%;
+                height: auto;
+            }
+            
+            .image-section {
+                height: 50vh;
+                padding: 2rem;
+            }
+            
+            .text-section {
+                padding: 2rem;
+            }
+            
+            .speech-bubble {
+                max-width: 100%;
+                border-radius: 20px;
+            }
+            
+            .speech-bubble:after, 
+            .speech-bubble:before {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Éléments décoratifs -->
+    <div class="peach" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
+    <div class="peach" style="top: 70%; left: 10%; animation-delay: 0.5s; width: 70px; height: 70px;"></div>
+    <div class="peach" style="top: 30%; right: 8%; animation-delay: 1s; width: 40px; height: 40px;"></div>
+    <div class="peach" style="bottom: 15%; right: 15%; animation-delay: 1.5s;"></div>
+
+    <!-- Section image (gauche) -->
+    <div class="image-section">
+        <img src="image.png" alt="Fuze Tea Pêche - La potion magique" id="fuze-tea">
+        <div class="click-counter" id="click-counter">0 clics de désespoir</div>
+    </div>
+    
+    <!-- Section texte (droite) -->
+    <div class="text-section">
+        <div class="speech-bubble">
+            <h1>Fuze Tea Addicts Anonymous</h1>
+            <p>Nous sommes une communauté de passionnés qui pensent qu'une vie sans Fuze Tea Pêche est comme un ordinateur sans internet — techniquement possible, mais profondément triste.</p>
+            <p>Notre mission ? Vous aider à trouver les distributeurs automatiques les plus proches, partager nos meilleures techniques pour ouvrir la bouteille d'une seule main, et soutenir ceux qui ont déjà bu leur quota quotidien avant 10h.</p>
+            <p>Rejoignez-nous dans cette quête sacrée de la pêche parfaite (celle du Fuze Tea, pas le fruit — bien que... 🍑).</p>
+            <a href="#" class="btn">S'abonner à notre newsletter (10% de sucre en moins)</a>
+            <p class="warning">*Attention : La consommation excessive de Fuze Tea peut entraîner des envies irrépressibles d'en acheter dès que vous passez devant un frigo. Nous déclinons toute responsabilité.</p>
+        </div>
+
+        <!-- Section stats et témoignages -->
+        <div class="fun-section">
+            <div class="stat">
+                <h2>Statistiques bidon mais crédibles</h2>
+                <ul>
+                    <li><strong>98,7%</strong> des membres cachent des bouteilles dans leur bureau (au cas où)</li>
+                    <li><strong>3,14</strong> est le nombre moyen de Fuze Tea bus pendant un épisode de Netflix</li>
+                    <li><strong>100%</strong> des tentatives d'arrêter ont échoué avant midi</li>
+                    <li><strong>42</strong> est la réponse à la question "Combien c'est trop?"</li>
+                </ul>
+            </div>
+
+            <div class="testimonials">
+                <h2>Témoignages (vraiment pas faux)</h2>
+                <p>"J'ai essayé de passer au thé normal... mon médecin a appelé ça une dépression."</p>
+                <em>- Jean-Kévin, en sevrage</em>
+
+                <p>"Mon chat préfère l'eau... je cherche une nouvelle famille."</p>
+                <em>- Marie, en crise existentielle</em>
+
+                <p>"C'est pas une addiction si tu peux t'arrêter. Moi je peux. Je veux juste pas."</p>
+                <em>- Un membre très convaincant</em>
+            </div>
+
+            <div class="counter">
+                <h2>Fuze Tea bus cette minute</h2>
+                <div id="tea-counter">0</div>
+                <p style="font-size: 0.8rem; color: #fd79a8; text-align: center;">(Actualisé toutes les 2 secondes, comme notre soif)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation JS améliorée
+        const bubble = document.querySelector('.speech-bubble');
+        const btn = document.querySelector('.btn');
+        const fuzeTea = document.querySelector('#fuze-tea');
+        const clickCounter = document.querySelector('#click-counter');
+        let clickCount = 0;
+
+        // Compteur de clics sur l'image
+        fuzeTea.addEventListener('click', function() {
+            clickCount++;
+            clickCounter.textContent = `${clickCount} ${clickCount === 1 ? 'clic' : 'clics'} de désespoir`;
+            clickCounter.style.display = 'block';
+            
+            // Animation de secousse
+            this.style.transform = 'rotate(10deg) scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(-10deg) scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'rotate(0) scale(1)';
+                }, 100);
+            }, 100);
+            
+            // Ajouter une pêche flottante
+            if (clickCount % 3 === 0) {
+                const peach = document.createElement('div');
+                peach.className = 'peach';
+                peach.style.position = 'absolute';
+                peach.style.left = `${Math.random() * 80 + 10}%`;
+                peach.style.top = `${Math.random() * 80 + 10}%`;
+                peach.style.width = `${Math.random() * 50 + 30}px`;
+                peach.style.height = peach.style.width;
+                peach.style.animationDuration = `${Math.random() * 3 + 3}s`;
+                document.body.appendChild(peach);
+                
+                // Supprimer après animation
+                setTimeout(() => {
+                    peach.remove();
+                }, 5000);
+            }
+        });
+
+        // Bouton avec plus d'interactions
+        btn.addEventListener('mouseover', function() {
+            const phrases = [
+                "Cliquez avant qu'il ne soit trop tard !",
+                "Ne résistez pas à l'appel de la pêche !",
+                "Votre vie va changer (en mieux)",
+                "Promis, c'est pas un piège !"
+            ];
+            this.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+            bubble.style.transform = 'scale(1.03) rotate(1deg)';
+        });
+        
+        btn.addEventListener('mouseout', function() {
+            this.textContent = "S'abonner à notre newsletter (10% de sucre en moins)";
+            bubble.style.transform = 'scale(1) rotate(0)';
+        });
+        
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const messages = [
+                "Félicitations ! Votre kit 'Dépendance Niveau Expert' est en route.\n(Contient : 1 carte de membre, 5 excuses pour votre banquier, 1 photo de distributeur automatique)",
+                "Merci ! Votre autocollant 'Je ♥ Fuze Tea' arrivera dans 3 à 5 jours ouvrables (si vous survivez sans jus d'ici là)",
+                "⚠️ Alerte ! Notre système a détecté que vous êtes déjà membre. Voulez-vous vraiment doubler votre dose ?",
+                "Echec de la commande : Veuillez vérifier que vous avez bien du Fuze Tea à portée de main avant de continuer."
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)] + "\n\n🍑✨");
+            
+            // Confettis virtuels
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'peach';
+                confetti.style.position = 'fixed';
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = '-30px';
+                confetti.style.width = '20px';
+                confetti.style.height = '20px';
+                confetti.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        });
+
+        // Effet de secousse amélioré sur la bulle
+        bubble.addEventListener('click', function() {
+            this.style.animation = 'none';
+            this.style.transform = 'translateX(15px) rotate(5deg)';
+            setTimeout(() => {
+                this.style.transform = 'translateX(-15px) rotate(-5deg)';
+                setTimeout(() => {
+                    this.style.transform = 'translateX(0) rotate(0)';
+                    this.style.animation = 'float 8s ease-in-out infinite';
+                }, 100);
+            }, 100);
+        });
+
+        // Animation de chute pour les confettis
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Compteur de Fuze Tea bus (aléatoire)
+        let teaCount = 0;
+        const teaCounter = document.getElementById('tea-counter');
+        
+        setInterval(() => {
+            teaCount += Math.floor(Math.random() * 5) + 1;
+            teaCounter.textContent = teaCount;
+            
+            // Changement de couleur aléatoire parfois
+            if (Math.random() > 0.7) {
+                teaCounter.style.background = `linear-gradient(to right, #${Math.floor(Math.random()*16777215).toString(16)}, #${Math.floor(Math.random()*16777215).toString(16)})`;
+            }
+        }, 2000);
+
+        // Adaptation automatique de la taille de l'image
+        function adjustImageSize() {
+            const img = document.querySelector('.image-section img');
+            const container = document.querySelector('.image-section');
+            
+            const imgRatio = img.naturalWidth / img.naturalHeight;
+            const containerRatio = container.clientWidth / container.clientHeight;
+            
+            if (imgRatio > containerRatio) {
+                img.style.width = '80%';
+                img.style.height = 'auto';
+            } else {
+                img.style.width = 'auto';
+                img.style.height = '70%';
+            }
+        }
+
+        window.addEventListener('load', adjustImageSize);
+        window.addEventListener('resize', adjustImageSize);
+    </script>
+</body>
+</html>
