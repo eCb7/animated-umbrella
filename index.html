@@ -5,52 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fuze Tea Addicts Anonymous</title>
     <style>
+        /* RESET ET BASES */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Comic Neue', cursive, sans-serif;
+            font-family: 'Comic Neue', cursive, sans-serif; /* Police décalée */
         }
 
+        /* STRUCTURE PRINCIPALE */
         body {
             min-height: 100vh;
-            display: flex;
+            display: flex; /* Layout flex pour diviser l'écran */
         }
 
+        /* COLONNES GAUCHE/DROITE */
         .left,
         .right {
             width: 50%;
             height: 100vh;
         }
 
+        /* COLONNE GAUCHE (IMAGE) */
         .left {
-            background: #fff0f5;
+            background: #fff0f5; /* Rose très pâle */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .left .image-container {
-            width: 750px;
+            width: 750px; /* Conteneur responsive */
         }
 
         .left .image-container img {
             width: 100%;
             height: auto;
+            transition: transform 0.3s ease; /* Animation au survol */
         }
 
         .left .image-container img:hover {
-            transform: rotate(5deg) scale(1.05);
+            transform: rotate(5deg) scale(1.05); /* Effet fun au survol */
         }
 
+        /* COLONNE DROITE (CONTENU) */
         .right {
-            background: #fff9f0;
+            background: #fff9f0; /* Beige rosé */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
         }
 
+        /* BULLE DE DIALOGUE */
         .speech-bubble {
             background: #fff9f9;
             border-radius: 30px;
@@ -58,11 +65,12 @@
             box-shadow: 0 20px 40px rgba(255, 107, 149, 0.2);
             width: 100%;
             max-width: 500px;
-            border: 4px solid #ff9a8b;
+            border: 4px solid #ff9a8b; /* Bordure orange */
             position: relative;
             min-height: 500px;
         }
 
+        /* POINTE DE LA BULLE */
         .speech-bubble::before {
             content: "";
             position: absolute;
@@ -71,7 +79,7 @@
             width: 0;
             height: 0;
             border: 15px solid transparent;
-            border-right-color: #ff9a8b;
+            border-right-color: #ff9a8b; /* Triangle de bordure */
             border-left: 0;
         }
 
@@ -83,29 +91,32 @@
             width: 0;
             height: 0;
             border: 12px solid transparent;
-            border-right-color: #fff9f9;
+            border-right-color: #fff9f9; /* Triangle intérieur */
             border-left: 0;
         }
 
+        /* TYPOGRAPHIE */
         h1 {
-            color: #e84393;
+            color: #e84393; /* Rose vif */
             margin-bottom: 1.5rem;
             font-size: 2.2rem;
             text-align: center;
             text-shadow: 2px 2px 0px rgba(255,154,139,0.2);
         }
 
+        /* SYSTEME DE PAGES */
         .page {
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease; /* Animation d'apparition */
         }
 
         .page.active {
             display: block;
         }
 
+        /* CONTENU TEXTE */
         p {
-            color: #6c5ce7;
+            color: #6c5ce7; /* Violet */
             line-height: 1.8;
             margin-bottom: 1.5rem;
         }
@@ -120,9 +131,10 @@
             color: #6c5ce7;
         }
 
+        /* BOUTONS */
         .btn {
             display: inline-block;
-            background: linear-gradient(to right, #ff9a8b, #ff6b95);
+            background: linear-gradient(to right, #ff9a8b, #ff6b95); /* Dégradé orange-rose */
             color: white;
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
@@ -147,6 +159,7 @@
             margin: 0 0.5rem;
         }
 
+        /* PAGINATION */
         .pagination {
             display: flex;
             justify-content: center;
@@ -176,6 +189,7 @@
             transform: scale(1.2);
         }
 
+        /* MESSAGE D'AVERTISSEMENT */
         .warning {
             font-size: 0.8rem;
             color: #fd79a8;
@@ -184,11 +198,13 @@
             text-align: center;
         }
 
+        /* ANIMATIONS */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -212,16 +228,19 @@
     </style>
 </head>
 <body>
+    <!-- COLONNE GAUCHE : IMAGE -->
     <div class="left">
         <div class="image-container">
             <img src="fuzetea.png" alt="Fuze Tea Pêche">
         </div>
     </div>
+
+    <!-- COLONNE DROITE : CONTENU -->
     <div class="right">
         <div class="speech-bubble">
             <h1>Fuze Tea Addicts Anonymous</h1>
 
-            <!-- Page 1 -->
+            <!-- PAGE 1 : INTRODUCTION -->
             <div class="page active" id="page1">
                 <p>🚨 <strong>Urgence thé-pêche</strong> : Nous avons détecté que vous êtes ici car votre stock de Fuze Tea est critique. Ne paniquez pas (enfin, pas trop), nous sommes là pour vous aider !</p>
                 <p>Notre association accompagne les victimes de ce délicieux fléau depuis 2012. Saviez-vous que 100% de nos membres rechutent quotidiennement ? <em>(Étude très sérieuse)</em></p>
@@ -235,7 +254,7 @@
                 </div>
             </div>
 
-            <!-- Page 2 -->
+            <!-- PAGE 2 : SERVICES -->
             <div class="page" id="page2">
                 <p>🎯 <strong>Nos services premium</strong> :</p>
                 <ul>
@@ -254,7 +273,7 @@
                 </div>
             </div>
 
-            <!-- Page 3 -->
+            <!-- PAGE 3 : STATISTIQUES -->
             <div class="page" id="page3">
                 <p>📊 <strong>Statistiques bidon mais crédibles</strong> :</p>
                 <ul>
@@ -272,7 +291,7 @@
                 </div>
             </div>
 
-            <!-- Page 4 -->
+            <!-- PAGE 4 : TEMOIGNAGES -->
             <div class="page" id="page4">
                 <p>💬 <strong>Témoignages (vraiment pas faux)</strong> :</p>
                 <p>"J'ai essayé de passer au thé normal... mon médecin a appelé ça une dépression."<br><em>- Jean-Kévin, en sevrage</em></p>
@@ -287,11 +306,13 @@
                 </div>
             </div>
 
+            <!-- NAVIGATION -->
             <div class="pagination">
                 <button class="btn btn-small" id="prev-btn">Précédent</button>
                 <button class="btn btn-small" id="next-btn">Suivant</button>
             </div>
 
+            <!-- BOUTON D'ACTION PRINCIPAL -->
             <a href="#" class="btn" id="action-btn" style="display: block; text-align: center; margin-top: 1.5rem;">
                 Je veux mon kit de survie !
             </a>
@@ -301,6 +322,7 @@
     </div>
 
     <script>
+        // ELEMENTS DU DOM
         const pages = document.querySelectorAll('.page');
         const dots = document.querySelectorAll('.dot');
         const prevBtn = document.getElementById('prev-btn');
@@ -309,6 +331,7 @@
         let currentPage = 1;
         const totalPages = pages.length;
 
+        // MESSAGES ALÉATOIRES POUR LE BOUTON
         const actionMessages = [
             "Je veux mon kit de survie !",
             "Sauvez-moi ! (Envoie-moi du Fuze Tea)",
@@ -317,25 +340,32 @@
             "10% de sucre en moins, 100% de plaisir en plus"
         ];
 
+        // MET À JOUR LE TEXTE DU BOUTON PRINCIPAL
         function updateActionButton() {
             actionBtn.textContent = actionMessages[Math.floor(Math.random() * actionMessages.length)];
         }
 
+        // AFFICHE UNE PAGE SPÉCIFIQUE
         function showPage(pageNumber) {
+            // Masque toutes les pages
             pages.forEach(page => page.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
 
+            // Affiche la page demandée
             document.getElementById(`page${pageNumber}`).classList.add('active');
             document.querySelector(`.dot[data-page="${pageNumber}"]`).classList.add('active');
 
             currentPage = pageNumber;
 
+            // Gère la visibilité des boutons de navigation
             prevBtn.style.visibility = pageNumber === 1 ? 'hidden' : 'visible';
             nextBtn.style.visibility = pageNumber === totalPages ? 'hidden' : 'visible';
 
+            // 30% de chance de changer le texte du bouton
             if (Math.random() > 0.7) updateActionButton();
         }
 
+        // ECOUTEURS D'EVENEMENTS
         nextBtn.addEventListener('click', () => {
             if (currentPage < totalPages) showPage(currentPage + 1);
         });
@@ -350,6 +380,7 @@
             });
         });
 
+        // ACTION DU BOUTON PRINCIPAL
         actionBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const messages = [
@@ -362,8 +393,74 @@
             updateActionButton();
         });
 
+        // INITIALISATION
         showPage(1);
         updateActionButton();
     </script>
 </body>
 </html>
+
+<!-- 
+
+LÉGENDE ET EXPLICATION DES ÉLÉMENTS
+
+STRUCTURE PRINCIPALE:
+- Split-screen avec image à gauche et contenu à droite
+- Système de pages multiples dans une bulle de dialogue
+- Design responsive (passe en colonne sur mobile)
+
+COMPOSANTS CLÉS:
+1. Bulle de dialogue avec pointe (CSS pur)
+2. Système de pagination (4 pages)
+3. Indicateurs visuels (dots)
+4. Bouton d'action avec messages aléatoires
+5. Animation de transition entre pages
+
+COULEURS:
+- Palette rose/orange/violet pour un look fun et moderne
+- #ff9a8b : Orange saumon (bordure principale)
+- #e84393 : Rose vif (titres)
+- #6c5ce7 : Violet (texte)
+- #fff0f5/#fff9f0 : Fond très clair
+
+EFFETS:
+- Rotation légère de l'image au survol
+- Ombre portée sur la bulle
+- Animation fadeIn pour les pages
+- Boutons avec dégradé et effet 3D au survol
+
+FONCTIONNALITÉS JS:
+1. Navigation entre pages (flèches et dots)
+2. Bouton principal avec:
+   - Messages aléatoires
+   - Alerte humoristique au clic
+3. Gestion de l'état actif
+
+RESPONSIVE:
+- Passe en colonne unique sous 768px
+- Réduction des espacements
+- Adaptation de la taille de police
+
+HUMOUR ET TON:
+- Texte décalé et auto-dérision
+- Fausses statistiques
+- Témoignages imaginaires
+- Mentions légales humoristiques
+
+ACCESSIBILITÉ:
+- Balisage sémantique de base
+- Alt text pour l'image
+- Contraste correct (pour un site fun)
+
+PERFORMANCE:
+- CSS intégré (évite un fichier externe pour ce petit projet)
+- Pas de librairie JS externe
+- Animations CSS optimisées
+
+AMÉLIORATIONS POSSIBLES:
+- Ajouter un vrai formulaire
+- Sauvegarder l'état dans localStorage
+- Ajouter des animations supplémentaires
+- Version multilingue
+
+-->
